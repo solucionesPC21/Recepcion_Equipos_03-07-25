@@ -1,0 +1,171 @@
+/* Estilos para el modal */
+.modal {
+    display: none; /* Oculta el modal por defecto */
+    position: fixed; /* Permite que el modal se desplace con el contenido */
+    z-index: 1000; /* Asegura que el modal esté en la parte superior */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite desplazarse por el contenido del modal */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    
+    background-color: #fefefe;
+    margin: 15% auto; /* Centra verticalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Ancho del contenido del modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    bottom:25%;
+    
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: red;
+    width: 7%;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.close:hover,
+.close:focus {
+    
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para los botones de aceptar y cancelar */
+.modal-content button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 40%; /* Establece el ancho automático para adaptarse al contenido del botón */
+    margin: 10px; /* Margen entre los botones */
+    
+}
+
+/* Estilos para el contenedor de los botones */
+.botones {
+    display: flex; /* Utiliza flexbox para alinear los botones horizontalmente */
+    justify-content: space-between; /* Distribuye los botones uniformemente en el contenedor */
+}
+
+/* Estilos para los botones de aceptar y cancelar */
+.botones button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    flex: 1; /* Hace que los botones ocupen el mismo ancho */
+}
+
+/* Estilos específicos para el botón de cancelar */
+.botones button.cancel {
+    background-color: #f44336;
+    margin-left: 10px; /* Agrega un pequeño margen entre los botones */
+}
+
+/* Estilos cuando se pasa el mouse sobre los botones */
+
+.botones .aceptar {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+/* Estilos específicos para el botón de cancelar */
+.botones .cancelar {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+/*estilos modales mensajes de error exito*/
+/* Clase para el modal-alert */
+.modal-alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px; /* Ajusta el ancho máximo según tus necesidades */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+/* Contenido del modal-alert */
+.modal-alert-content {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Mostrar modal con transición de opacidad */
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilo para los mensajes de error */
+.custom-error-message {
+    font-size: 16px; /* Tamaño de la fuente */
+    padding: 10px; /* Espaciado interno */
+    margin: 10px 0; /* Espaciado externo */
+    background-color: #ff0019; /* Rojo para mensajes de error */
+    border: 1px solid #ff0019; /* Borde */
+    border-radius: 4px; /* Bordes redondeados */
+    width: 100%;
+    color: #FFFFFF;
+}
+
+/* Estilo para los mensajes de éxito */
+.custom-alert {
+    padding: 15px; /* Ajusta el padding según el tamaño deseado */
+    font-size: 16px; /* Ajusta el tamaño de fuente según el tamaño deseado */
+    width: 100%;
+    background-color: #1f8d38; /* Verde para mensajes de éxito */
+    color: #FFFFFF;
+}
+
+/* Lista sin viñetas */
+.custom-error-message ul {
+    list-style-type: none; /* Elimina las viñetas de la lista */
+    padding: 5px; /* Elimina el padding interior de la lista */
+    margin: 0; /* Elimina el margin exterior de la lista */
+}
+
+/* Espacio entre elementos de la lista */
+.custom-error-message li {
+    margin-bottom: 5px; /* Añade un espacio entre cada mensaje de error */
+}
+
+/* Barra de progreso */
+.progress-bar {
+    height: 5px;
+    width: 0%;
+    background-color: #FFFFFF;
+    transition: width 2s linear;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
