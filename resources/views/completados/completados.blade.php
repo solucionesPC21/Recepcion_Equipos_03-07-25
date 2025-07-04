@@ -91,7 +91,10 @@
                                 <img src="{{ url('assets/iconos/file-earmark-arrow-down-fill1.svg') }}" width="24" height="24" style="display: block;">
                             </button>
                         </form>
+                  @else
+                        <span class="text-muted">Sin ticket</span>
                     @endif
+
                 </td>
 
                 <td>

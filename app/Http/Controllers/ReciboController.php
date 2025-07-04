@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Recibo;
 use Illuminate\Http\Request;
 use App\Models\TipoEquipo;
+use Carbon\Carbon;
 use PDF; 
 
 class ReciboController extends Controller
@@ -30,6 +31,27 @@ class ReciboController extends Controller
         $totalRecibos = Recibo::where('id_estado', 4)->count(); // Obtenemos el total de tipos de equipo con estado 1
         return view('recibos.recibos-rechazados', compact('recibos', 'totalRecibos'));
     }
+
+    //marcar sin cobrar
+    public function marcarSinCobrar($id)
+    {
+        $recibo = Recibo::find($id);
+
+        if (!$recibo) {
+            return response()->json([
+                'error' => 'Recibo no encontrado.'
+            ], 404);
+        }
+
+        $recibo->id_estado = 3;
+        $recibo->fechaReparacion = Carbon::now();
+        $recibo->save();
+
+        return response()->json([
+            'message' => 'El recibo ha sido marcado como completado sin cobrar.'
+        ]);
+    }
+
     
    
     public function pdfImprimir($id)

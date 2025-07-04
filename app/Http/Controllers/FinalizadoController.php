@@ -13,22 +13,27 @@ class FinalizadoController extends Controller
 {
     public function index()
     {
-        // Recuperar los recibos completados (id_estado = 3) con tickets cancelados (estado_id = 3)
         $recibos = Recibo::where('recibos.id_estado', 3)
-            ->join('tickets', 'recibos.id', '=', 'tickets.id_recibo')
-            ->where('tickets.estado_id', 3) // Filtro adicional para tickets cancelados
-            ->orderBy('tickets.id', 'DESC')
-            ->select('recibos.*')
+            ->leftJoin('tickets', 'recibos.id', '=', 'tickets.id_recibo')
+            ->where(function ($query) {
+                $query->where('tickets.estado_id', 3)
+                    ->orWhereNull('tickets.id');
+            })
+            ->orderBy('recibos.id', 'DESC')
+            ->select('recibos.*', 'tickets.id as ticket_id')
             ->paginate(5);
 
-        // Contar solo los recibos que cumplen ambos criterios
-        $totalRecibos = Recibo::where('id_estado', 3)
-            ->join('tickets', 'recibos.id', '=', 'tickets.id_recibo')
-            ->where('tickets.estado_id', 3)
-            ->count(); 
+        $totalRecibos = Recibo::where('recibos.id_estado', 3)
+            ->leftJoin('tickets', 'recibos.id', '=', 'tickets.id_recibo')
+            ->where(function ($query) {
+                $query->where('tickets.estado_id', 3)
+                    ->orWhereNull('tickets.id');
+            })
+            ->count();
 
         return view('completados.completados', compact('recibos', 'totalRecibos'));
     }
+
 
     public function pdf($id)
     {

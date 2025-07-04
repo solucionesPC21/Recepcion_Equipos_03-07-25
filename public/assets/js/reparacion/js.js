@@ -76,11 +76,43 @@ function buscarRechazado() {
 
 // Función para abrir el modal de confirmación
  // Función para abrir el modal de confirmación de reparación
- function abrirModalConfirmacion(idRecibos) {
-    var modal = document.getElementById("confirmacionModal");
-    modal.style.display = "block";
-    document.getElementById("confirmarReparacionButton").setAttribute("data-id", idRecibos);
-    document.getElementById("cancelarReparacionButton").setAttribute("data-id", idRecibos);
+function abrirModalConfirmacion(idRecibo, esRechazado = false) {
+    // Obtener elementos del modal
+    const modal = document.getElementById("confirmacionModal");
+    const confirmarButton = document.getElementById("confirmarReparacionButton");
+    const sinCobrarButton = document.getElementById("completarSinCobrarButton");
+    const cancelarButton = document.getElementById("cancelarReparacionButton");
+    
+    // Configurar el botón principal (siempre existe)
+    if (confirmarButton) {
+        confirmarButton.setAttribute("data-id", idRecibo);
+        
+        // Cambiar texto y comportamiento según el contexto
+        if (esRechazado) {
+            confirmarButton.textContent = "Regresar al apartado de recibidos";
+            confirmarButton.onclick = function() { confirmarReparacion1(idRecibo); };
+        } else {
+            confirmarButton.textContent = "Confirmar Reparación";
+            confirmarButton.onclick = function() { confirmarReparacion(idRecibo); };
+        }
+    }
+
+    // Configurar botón "sin cobrar" (solo para recibos normales)
+    if (sinCobrarButton) {
+        sinCobrarButton.setAttribute("data-id", idRecibo);
+        sinCobrarButton.style.display = esRechazado ? "none" : "block";
+    }
+
+    // Configurar botón cancelar (solo para admin y recibos normales)
+    if (cancelarButton) {
+        cancelarButton.setAttribute("data-id", idRecibo);
+        cancelarButton.style.display = esRechazado ? "none" : "block";
+    }
+
+    // Mostrar el modal
+    if (modal) {
+        modal.style.display = "block";
+    }
 }
 
 // Función para cerrar el modal de confirmación de reparación
@@ -112,6 +144,32 @@ function confirmarReparacion() {
 
     xhr.send();
 }
+
+///Marcar sin cobrar
+function marcarSinCobrar() {
+    var idRecibo = document.getElementById("completarSinCobrarButton").getAttribute("data-id");
+
+    $.ajax({
+        url: '/recibos/sin-cobrar/' + idRecibo,
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            cerrarModalConfirmacion();
+            localStorage.setItem('message', response.message);
+            localStorage.setItem('messageType', 'success');
+            window.location.reload(true);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            cerrarModalConfirmacion();
+            localStorage.setItem('message', 'Error al marcar como completado sin cobrar.');
+            localStorage.setItem('messageType', 'error');
+            window.location.reload(true);
+        }
+    });
+}
+
 ////cancelar cancelacion de recibo
 function confirmarReparacion1() {
     var idRecibos = document.getElementById("confirmarReparacionButton").getAttribute("data-id");

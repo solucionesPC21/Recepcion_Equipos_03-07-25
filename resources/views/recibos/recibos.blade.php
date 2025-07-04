@@ -89,13 +89,24 @@
             <span class="close" onclick="cerrarModalConfirmacion()">&times;</span>
             <h2>¿La Reparación Ya Fue Completada?</h2>
             <div class="botones">
-                <button id="confirmarReparacionButton" onclick="confirmarReparacion()" data-id="">Confirmar Reparación</button>
+
+                <button id="confirmarReparacionButton" onclick="confirmarReparacion()" data-id="">
+                    Confirmar Reparación
+                </button>
+                
+                <button id="completarSinCobrarButton" onclick="marcarSinCobrar()" data-id="" style="background-color: #3393ff;">
+                    Marcar como Completado sin Cobrar
+                </button>
+
                 @auth
                     @if(auth()->user()->isAdmin())
-                        <button class="cancelar" id="cancelarReparacionButton" onclick="confirmarCancelarReparacion()" data-id="">Cancelar Reparación</button>
+                        <button class="cancelar" id="cancelarReparacionButton" onclick="confirmarCancelarReparacion()" data-id="">
+                            Cancelar Reparación
+                        </button>
                     @endif
                 @endauth
             </div>
+
         </div>
     </div>
 

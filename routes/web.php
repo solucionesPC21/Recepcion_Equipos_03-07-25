@@ -152,6 +152,7 @@ Route::get('recibos/rechazado', [ReciboController::class, 'rechazado'])->name('r
 
 Route::get('/imprimir', [ConceptoController::class, 'imprimir'])->middleware('auth');
 
+Route::post('/recibos/sin-cobrar/{id}', [ReciboController::class, 'marcarSinCobrar'])->middleware('auth');
 
 Route::get('/home/buscarColonia', [BuscarColoniasController::class, 'buscarColonia'])->middleware('auth');
 
@@ -198,7 +199,7 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/ventas-abonos', [AbonosController::class, 'storeVenta'])->name('ventas-abonos.store');
   Route::get('/buscar-clientes', [AbonosController::class, 'buscarClientes'])->name('clientes.buscar');
   // Nueva ruta para búsqueda AJAX
-  Route::post('/clientesAbono', [AbonosController::class, 'storeCliente'])->name('clientes.store');
+  Route::post('/clientesAbono', [AbonosController::class, 'storeCliente'])->name('clientes.abono.store');
 });
 
 Route::patch('/pagos/{id}/cancelar', [PagosController::class, 'cancelar'])
