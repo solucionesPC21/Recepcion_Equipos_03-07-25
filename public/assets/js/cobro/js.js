@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // También mantener los conceptos individuales si el servidor los necesita
         cart.forEach((item, index) => {
-            formData.append(`concepto[${index}]`, item.name);
+            formData.append(`concepto[${index}]`, item.id);
             formData.append(`precio_unitario[${index}]`, item.price);
             formData.append(`cantidad[${index}]`, item.quantity);
         });

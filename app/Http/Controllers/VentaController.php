@@ -165,9 +165,9 @@ class VentaController extends Controller
 
          // Procesar cada concepto del carrito
          // Procesar cada concepto del carrito
-        foreach ($request->concepto as $key => $nombreConcepto) {
+        foreach ($request->concepto as $key => $idConcepto) {
             // Buscar el producto en inventario
-            $producto = NombreConcepto::where('nombre', $nombreConcepto)->firstOrFail();
+            $producto = NombreConcepto::where('id', $idConcepto)->firstOrFail();
             
             $cantidadVendida = $request->cantidad[$key];
             
@@ -264,7 +264,12 @@ class VentaController extends Controller
                    if ($conceptos->nombreConcepto->marca) {
                        $nombreCompleto .= " " . $conceptos->nombreConcepto->marca;
                    }
-               
+                   
+                   // Agregar la descripción si existe
+                   // Luego si hay descripción, añadirla en nueva línea
+                   if (!empty($conceptos->nombreConcepto->descripcion)) {
+                        $nombreCompleto .= " - " . $conceptos->nombreConcepto->descripcion;
+                    }
 
 
                 // Asegura que cada columna tenga la longitud deseada y esté centrada

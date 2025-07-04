@@ -44,6 +44,7 @@
                     {{ $concepto->nombreConcepto?->nombre ?? '' }}
                     {{ $concepto->nombreConcepto?->marca ? ' ' . $concepto->nombreConcepto->marca : '' }}
                      {{ $concepto->nombreConcepto?->modelo ? ' ' . $concepto->nombreConcepto->modelo : '' }}
+                       {{ $concepto->nombreConcepto?->descripcion ? ' - ' . $concepto->nombreConcepto->descripcion : '' }}
                 </td>
                 <td class="total-column">${{ number_format($concepto->total, 2) }}</td>
                 <!-- Otras columnas del concepto -->
